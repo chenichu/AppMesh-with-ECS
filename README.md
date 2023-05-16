@@ -36,3 +36,9 @@ Service Discovery overview and show diagram:
   - Typically fronted by NLB, however ALB also possible
 
 ![Containerized web application access using virtual gateway ](/images/app-appmesh-vgw.jpg "app-appmesh-vgw")
+
+### Walkthrough of the implementation
+
+A step by step walkthrough is available for this excercise, this involves looking at various JSON files/commands and editing values in <angle brackets>.
+(i.e. this is not a fully automated soln, but a step by step guide)
+
