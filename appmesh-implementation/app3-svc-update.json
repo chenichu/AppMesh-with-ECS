@@ -1,0 +1,6 @@
+{
+    "cluster": "default", 
+    "service": "app3-svc", 
+    "desiredCount": 1, 
+    "taskDefinition": "app3:2"
+}

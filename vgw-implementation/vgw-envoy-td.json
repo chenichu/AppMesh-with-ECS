@@ -1,0 +1,58 @@
+{
+    "family": "vgw-envoy", 
+    "executionRoleArn": "<execution_role_arn>",
+    "taskRoleArn": "<task_role_arn>",
+    "networkMode": "awsvpc", 
+    "containerDefinitions": [
+        {
+            "name": "envoy", 
+            "image": "840364872350.dkr.ecr.us-east-1.amazonaws.com/aws-appmesh-envoy:v1.25.4.0-prod", 
+            "memory": 500, 
+            "portMappings": [
+                {
+                    "containerPort": 80, 
+                    "protocol": "tcp"
+                },
+                {
+                    "containerPort": 9901, 
+                    "protocol": "tcp"
+                }
+            ], 
+            "essential": true, 
+            "environment": [
+                {
+                    "name": "APPMESH_VIRTUAL_NODE_NAME", 
+                    "value": "mesh/live-demo/virtualGateway/my-vgw"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/vgw-envoy",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            }, 
+            "healthCheck": {
+                "command": [
+                    "CMD-SHELL,curl -s http://localhost:9901/server_info | grep state | grep -q LIVE"
+                ], 
+                "interval": 5, 
+                "timeout": 2, 
+                "retries": 3, 
+                "startPeriod": 60
+            }
+        }
+    ], 
+    "requiresCompatibilities": [
+        "FARGATE"
+    ], 
+    "cpu": "256", 
+    "memory": "512", 
+    "tags": [
+        {
+            "key": "training", 
+            "value": "appmesh"
+        }
+    ]
+}

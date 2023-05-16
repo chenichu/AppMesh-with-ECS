@@ -1,0 +1,6 @@
+{
+    "cluster": "default", 
+    "service": "app1-svc", 
+    "desiredCount": 1, 
+    "taskDefinition": "app1:2"
+}

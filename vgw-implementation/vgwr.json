@@ -1,0 +1,25 @@
+{
+    "gatewayRouteName": "default", 
+    "meshName": "live-demo", 
+    "spec": {
+        "httpRoute": {
+            "action": {
+                "target": {
+                    "virtualService": {
+                        "virtualServiceName": "app1-svc.test.local"
+                    }
+                }
+            }, 
+            "match": {
+                "prefix": "/"
+            }
+        }
+    }, 
+    "tags": [
+        {
+            "key": "training", 
+            "value": "appmesh"
+        }
+    ], 
+    "virtualGatewayName": "my-vgw"
+}

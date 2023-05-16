@@ -1,0 +1,82 @@
+{
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "family": "app3",
+    "containerDefinitions": [
+        {
+            "name": "app3",
+            "image": "public.ecr.aws/patrickc/httpd-app3",
+            "essential": true,
+            "dependsOn": [
+                {
+                    "containerName": "envoy",
+                    "condition": "HEALTHY"
+                }
+            ]
+        },
+        {
+            "name": "envoy",
+            "image": "840364872350.dkr.ecr.us-east-1.amazonaws.com/aws-appmesh-envoy:v1.25.4.0-prod",
+            "essential": true,
+            "environment": [
+                {
+                    "name": "APPMESH_VIRTUAL_NODE_NAME", 
+                    "value": "mesh/live-demo/virtualNode/app3-vn"
+                }
+            ], 
+            "memory": 500,
+            "healthCheck": {
+                "retries": 3,
+                "command": [
+                  "CMD-SHELL",
+                  "curl -s http://localhost:9901/server_info | grep state | grep -q LIVE"
+                ],
+                "timeout": 2,
+                "interval": 5,
+                "startPeriod": 10
+            },
+            "user": "1337"
+        }
+    ],
+    "proxyConfiguration": {
+        "type": "APPMESH",
+        "containerName": "envoy",
+        "properties": [
+          {
+            "name": "ProxyIngressPort",
+            "value": "15000"
+          },
+          {
+            "name": "AppPorts",
+            "value": "80"
+          },
+          {
+            "name": "EgressIgnoredIPs",
+            "value": "169.254.170.2,169.254.169.254"
+          },
+          {
+            "name": "IgnoredGID",
+            "value": ""
+          },
+          {
+            "name": "EgressIgnoredPorts",
+            "value": ""
+          },
+          {
+            "name": "IgnoredUID",
+            "value": "1337"
+          },
+          {
+            "name": "ProxyEgressPort",
+            "value": "15001"
+          }
+        ]
+    },
+    "volumes": [],
+    "networkMode": "awsvpc",
+    "memory": "3 GB",
+    "cpu": "1 vCPU",
+    "executionRoleArn": "<execution_role_arn>",
+    "taskRoleArn": "<task_role_arn>"
+}

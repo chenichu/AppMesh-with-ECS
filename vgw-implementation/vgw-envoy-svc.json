@@ -1,0 +1,56 @@
+{
+    "cluster": "default", 
+    "serviceName": "vgw-envoy-svc", 
+    "taskDefinition": "vgw-envoy", 
+    "loadBalancers": [
+        {
+            "targetGroupArn": "<target-group-arn>",
+            "containerName": "envoy", 
+            "containerPort": 80
+        }
+    ], 
+    "serviceRegistries": [
+        {
+            "registryArn": "<registry-arn>", 
+            "containerName": "envoy"
+        }
+    ], 
+    "desiredCount": 1, 
+    "launchType": "FARGATE", 
+    "platformVersion": "LATEST", 
+    "role": "", 
+    "deploymentConfiguration": {
+        "deploymentCircuitBreaker": {
+            "enable": true, 
+            "rollback": true
+        }, 
+        "maximumPercent": 200, 
+        "minimumHealthyPercent": 100
+    }, 
+    "networkConfiguration": {
+        "awsvpcConfiguration": {
+            "subnets": [
+                "subnet-1",
+                "subnet-2",
+                "subnet-3",
+                "subnet-4",
+                "subnet-5",
+                "subnet-6"
+            ], 
+            "securityGroups": [
+                "sg-xxx"
+            ], 
+            "assignPublicIp": "ENABLED"
+        }
+    }, 
+    "schedulingStrategy": "REPLICA", 
+    "tags": [
+        {
+            "key": "training", 
+            "value": "appmesh"
+        }
+    ], 
+    "enableECSManagedTags": true, 
+    "propagateTags": "TASK_DEFINITION", 
+    "enableExecuteCommand": true
+}

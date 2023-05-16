@@ -1,0 +1,33 @@
+{
+    "meshName": "live-demo", 
+    "spec": {
+        "listeners": [
+            {
+                "portMapping": {
+                    "port": 80, 
+                    "protocol": "http"
+                }
+            }
+        ],
+        "backends": [
+            {
+                "virtualService": {
+                    "virtualServiceName": "app2-svc.test.local"
+                }
+                
+            },
+            {
+                "virtualService": {
+                    "virtualServiceName": "app3-svc.test.local"
+                }
+            }
+        ], 
+        "serviceDiscovery": {
+            "awsCloudMap": {
+                "namespaceName": "test.local", 
+                "serviceName": "app1-svc"
+            }
+        }
+    }, 
+    "virtualNodeName": "app1-vn"
+}
