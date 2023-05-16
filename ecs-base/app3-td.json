@@ -1,0 +1,19 @@
+{
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "family": "app3",
+    "containerDefinitions": [
+        {
+            "name": "app3",
+            "image": "public.ecr.aws/patrickc/httpd-app3",
+            "essential": true
+        }
+    ],
+    "volumes": [],
+    "networkMode": "awsvpc",
+    "memory": "3 GB",
+    "cpu": "1 vCPU",
+    "executionRoleArn": "<execution_role_arn>",
+    "taskRoleArn": "<task_role_arn>"
+}

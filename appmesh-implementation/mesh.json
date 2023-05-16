@@ -1,0 +1,14 @@
+{
+    "meshName": "live-demo", 
+    "spec": {
+        "egressFilter": {
+            "type": "DROP_ALL"
+        }
+    }, 
+    "tags": [
+        {
+            "key": "training", 
+            "value": "appmesh"
+        }
+    ]
+}

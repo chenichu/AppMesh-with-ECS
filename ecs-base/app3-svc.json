@@ -1,0 +1,51 @@
+{
+    "cluster": "default", 
+    "serviceName": "app3-svc", 
+    "taskDefinition": "app3:1", 
+    "serviceRegistries": [
+        {
+            "registryArn": "<registry-arn>", 
+            "containerName": "app3"
+        }
+    ], 
+    "desiredCount": 1, 
+    "launchType": "FARGATE", 
+    "platformVersion": "LATEST", 
+    "deploymentConfiguration": {
+        "deploymentCircuitBreaker": {
+            "enable": true, 
+            "rollback": true
+        }, 
+        "maximumPercent": 200, 
+        "minimumHealthyPercent": 0
+    }, 
+    "networkConfiguration": {
+        "awsvpcConfiguration": {
+            "subnets": [
+               "subnet-1",
+                "subnet-2",
+                "subnet-3",
+                "subnet-4",
+                "subnet-5",
+                "subnet-6"
+            ], 
+            "securityGroups": [
+                "sg-xxx"
+            ], 
+            "assignPublicIp": "ENABLED"
+        }
+    }, 
+    "schedulingStrategy": "REPLICA", 
+    "deploymentController": {
+        "type": "ECS"
+    }, 
+    "tags": [
+        {
+            "key": "training", 
+            "value": "appmesh"
+        }
+    ], 
+    "enableECSManagedTags": true, 
+    "propagateTags": "SERVICE", 
+    "enableExecuteCommand": true
+}
