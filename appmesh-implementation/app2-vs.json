@@ -1,0 +1,17 @@
+{
+    "meshName": "live-demo",  
+    "spec": {
+        "provider": {
+            "virtualNode": {
+                "virtualNodeName": "app2-vn"
+            }
+        }
+    }, 
+    "tags": [
+        {
+            "key": "traning", 
+            "value": "appmesh"
+        }
+    ], 
+    "virtualServiceName": "app2-svc.test.local"
+}
